@@ -1,3 +1,4 @@
+
 <?php
 function validateWhatsAppNumber($phoneNumber) {
     $curl = curl_init();
@@ -11,15 +12,15 @@ function validateWhatsAppNumber($phoneNumber) {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => json_encode([
-            'number' => $phoneNumber
+            'number' => '201142420289'
         ]),
         CURLOPT_HTTPHEADER => [
             "Content-Type: application/json",
             "x-rapidapi-host: whatsapp-number-validators.p.rapidapi.com",
-            "x-rapidapi-key: 23683586ccmshb8509b5703c2d82p1f6319jsn6df98991f829"
+            "x-rapidapi-key: 3be8078c7emshc615b462736395ap1c8b75jsn27f530b30ed0"
         ],
     ]);
-
+    
     $response = curl_exec($curl);
     $err = curl_error($curl);
 
