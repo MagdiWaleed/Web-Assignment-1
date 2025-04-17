@@ -1,4 +1,3 @@
 <footer>
-    <p>&copy; <?php echo date("Y"); ?> Your Company Name. All rights reserved.</p>
-    <?php someFunction(); ?>
+    <p>&copy; All rights reserved by Team 46</p>
 </footer>
