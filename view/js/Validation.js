@@ -1,4 +1,7 @@
-function validateForm() {
+function validateForm(event) {
+
+    event.preventDefault();
+
     var email = document.forms["RegisterForm"]["email"].value;
     var password = document.forms["RegisterForm"]["password"].value;
     var phone = document.forms["RegisterForm"]["phone"].value;
@@ -9,10 +12,10 @@ function validateForm() {
     var errorPhone = document.getElementById("error-phone");
     var error_whatsapp_number = document.getElementById("error-whatsapp_number");
     var error_confirm_password = document.getElementById("error-confirm_password");
-    var count = 0;
+    var isValid = true;
     if (!validateEmail(email)) {
         errorEmail.innerHTML = "Invalid Email";
-        count++;
+        isValid = false;
     } 
     else
     {
@@ -21,7 +24,7 @@ function validateForm() {
 
     if (!validatePassword(password)) {
         errorPassword.innerHTML = "Invalid Password";
-        count++;
+        isValid = false;
     } 
     else
     {
@@ -30,7 +33,7 @@ function validateForm() {
     
     if (!validatePhone(phone)) {
         errorPhone.innerHTML = "Invalid Phone Number";
-        count++;
+        isValid = false;
     } 
     else
     {
@@ -39,7 +42,7 @@ function validateForm() {
 
     if (!validatePhone(whatsappNumber)) {
         error_whatsapp_number.innerHTML = "Invalid Phone Number Format";
-        count++;
+        isValid = false;
     } 
     else
     {
@@ -48,17 +51,16 @@ function validateForm() {
 
     if (!validateConfirmPassword(password,confirmPassword)) {
         error_confirm_password.innerHTML = "Confirm password does not match the password";
-        count++;
+        isValid = false;
     }
     else
     {
         error_confirm_password.innerHTML = "";
     }
     
-    if(count = 0)
-        return true;
-    else
-        return false;
+    if (isValid) {
+        document.getElementById("RegisterForm").submit();
+    }
 }
 
 function validateEmail(email) {
