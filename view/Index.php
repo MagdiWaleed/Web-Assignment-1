@@ -14,7 +14,7 @@
     <?php include "Header.php"; ?>
     
     <main>
-        <form id="RegisterForm" action="" method="post" onsubmit="return validateForm()">
+        <form id="RegisterForm" action="" method="post">
             <div class="form">
                 <label><i class="fas fa-user-tag"></i> Full Name</label>
                 <input type="text" name="full_name" required placeholder="John Doe">
@@ -67,7 +67,7 @@
                 <input class="form-control form-control-sm" id="formFileSm" name="photo" type="file">
             </div>
             <div class="form">
-                <button type="submit">
+                <button type="submit" onclick="validateForm(event)">
                     <i class="fas fa-rocket"></i> Launch Your Account
                 </button>
             </div>
