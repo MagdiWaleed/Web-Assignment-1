@@ -7,7 +7,6 @@
 }
 
 * {
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -28,8 +27,11 @@ body {
 }
 
 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: var(--glass);
-    padding: 1.5rem 2rem;
+    padding: 1rem 2rem 0;
     box-shadow: 0 4px 30px rgba(0,0,0,0.1);
     backdrop-filter: blur(10px);
     position: fixed;
@@ -40,6 +42,17 @@ header {
 }
 
 .logo {
+    display: flex;
+}
+
+.logo img
+{
+    width: 100px;
+    height: 100px;
+}
+
+.logo p {
+    padding: 20px 2px;
     font-size: 1.8rem;
     font-weight: 700;
     background: linear-gradient(45deg, var(--primary), #8b5cf6);
@@ -75,6 +88,10 @@ nav a:hover::after {
     left: 0;
 }
 
+nav div {
+    display: flex;
+    gap: 20px;
+}
 main {
     flex: 1;
     padding: 8rem 2rem 4rem;
@@ -182,14 +199,6 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-.form:nth-child(1) { animation-delay: 0.2s; }
-.form:nth-child(2) { animation-delay: 0.3s; }
-.form:nth-child(3) { animation-delay: 0.4s; }
-.form:nth-child(4) { animation-delay: 0.5s; }
-.form:nth-child(5) { animation-delay: 0.6s; }
-.form:nth-child(6) { animation-delay: 0.7s; }
-.form:nth-child(7) { animation-delay: 0.8s; }
-.form:nth-child(8) { animation-delay: 0.9s; }
 
 @media (max-width: 768px) {
     header {
@@ -212,12 +221,13 @@ footer {
     }
 }
 
-@keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0); }
-}
-
 .logo:hover {
     animation: float 1.5s ease-in-out infinite;
+}
+.password-notice {
+    margin-left: 22px;
+}
+
+span {
+    color: red;
 }
