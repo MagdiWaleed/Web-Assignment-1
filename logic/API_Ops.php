@@ -13,12 +13,12 @@ function validateWhatsAppNumber($phoneNumber): bool {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => json_encode([
-            'number' => '201142420289'
+            'number' => $phoneNumber
         ]),
         CURLOPT_HTTPHEADER => [
             "Content-Type: application/json",
             "x-rapidapi-host: whatsapp-number-validators.p.rapidapi.com",
-            "x-rapidapi-key: 3be8078c7emshc615b462736395ap1c8b75jsn27f530b30ed0"
+            "x-rapidapi-key: 5759222c12msh9424aa2b1b6185dp11822fjsn48fea66b51cc"
         ],
     ]);
     
@@ -42,7 +42,7 @@ function validateWhatsAppNumber($phoneNumber): bool {
 }
 header("Content-Type: application/json");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $whatsapp_number = $_POST['whatsapp_number'];
+    $whatsapp_number = "2" . $_POST['whatsapp_number']; // ex : 201090965111
     if (validateWhatsAppNumber($whatsapp_number)){
         echo json_encode(["state"=>"success",'message'=>"success"]);
     }else{
