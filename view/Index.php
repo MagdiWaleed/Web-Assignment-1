@@ -33,7 +33,8 @@
             
             <div class="form">
                 <label><i class="fab fa-whatsapp"></i> WhatsApp Number</label>
-                <input type="tel" name="whatsapp_number" placeholder="010 234 567 89">
+                <input type="tel" name="whatsapp_number" id="whatsapp_number" placeholder="010 234 567 89">
+                <input type="button" value="check" onclick="whatsappNumber()">
                 <span id="error-whatsapp_number" ></span>
             </div>
             <div class="form">
@@ -67,7 +68,7 @@
                 <input class="form-control form-control-sm" id="formFileSm" name="photo" type="file">
             </div>
             <div class="form">
-                <button type="submit" onclick="validateForm(event)">
+                <button type="button" onclick="register()">
                     <i class="fas fa-rocket"></i> Launch Your Account
                 </button>
             </div>

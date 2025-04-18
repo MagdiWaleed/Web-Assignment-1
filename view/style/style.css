@@ -151,7 +151,7 @@ form {
     background: white;
 }
 
-button[type="submit"] {
+button[type="button"] {
     background: linear-gradient(45deg, var(--primary), #8b5cf6);
     color: white;
     padding: 1.2rem 2.4rem;
@@ -166,12 +166,12 @@ button[type="submit"] {
     overflow: hidden;
 }
 
-button[type="submit"]:hover {
+button[type="button"]:hover {
     transform: scale(0.98);
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
-button[type="submit"]::after {
+button[type="button"]::after {
     content: '';
     position: absolute;
     top: -50%;
@@ -186,7 +186,7 @@ button[type="submit"]::after {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-button[type="submit"]:hover::after {
+button[type="button"]:hover::after {
     left: 150%;
 }
 

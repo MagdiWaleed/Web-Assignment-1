@@ -1,6 +1,5 @@
-function validateForm(event) {
+function validateForm() {
 
-    event.preventDefault();
 
     var email = document.forms["RegisterForm"]["email"].value;
     var password = document.forms["RegisterForm"]["password"].value;
@@ -58,9 +57,10 @@ function validateForm(event) {
         error_confirm_password.innerHTML = "";
     }
     
-    if (isValid) {
-        document.getElementById("RegisterForm").submit();
-    }
+    // if (isValid) {
+    //     document.getElementById("RegisterForm").submit();
+    // }
+    return isValid
 }
 
 function validateEmail(email) {
@@ -81,3 +81,64 @@ function validateConfirmPassword(password,confirmPassword) {
     else
         return false;
 }
+ 
+ function register() {
+     if (!validateForm())return;
+    
+        var form = document.getElementById("RegisterForm");
+        var formData = new FormData(form); 
+      
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../../logic/DB_Ops.php", true); 
+      
+        xhr.onload = function () {
+            console.log(xhr)
+          if (xhr.status === 200) {
+            try {
+              var response = JSON.parse(xhr.responseText); 
+              console.log("Response:", response);
+              alert("Message: " + response['message']);
+            } catch (e) {
+              console.error("Invalid JSON:", xhr.responseText);
+            }
+          } else {
+            console.error("Server returned error:", xhr.status);
+          }
+        };
+      
+        xhr.onerror = function () {
+          console.error("Network request failed");
+        };
+      
+        xhr.send(formData); 
+    
+  }
+  
+
+  function whatsappNumber() {
+    const whatsappNumber = document.getElementById("whatsapp_number").value;
+    if (validatePhone(whatsappNumber)){
+    console.log(whatsappNumber);
+    const formData = new FormData();
+    formData.append("whatsapp_number", whatsappNumber); 
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "../../logic/API_Ops.php", true);
+  
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        
+          const response = JSON.parse(xhr.responseText);
+          alert("Message: " + response.message);
+      } else {
+        console.error("Error status:", xhr.status);
+      }
+    };
+  
+    xhr.onerror = function () {
+      console.error("Network error occurred.");
+    };
+  
+    xhr.send(formData);
+    }else{}
+}
+  

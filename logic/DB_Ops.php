@@ -1,5 +1,4 @@
 <?php
-include "WhatsappValidation.php";
 class Mydb{
     private $server_name;
     private $username;
@@ -22,7 +21,7 @@ class Mydb{
         $this->server_name = "127.0.0.1";
         $this->username = "root";
         $this->password = "";
-        $this->database = "mydb5";
+        $this->database = "assignment_db1";
         $this->table_name = "account";
         $this->conn = mysqli_connect($this->server_name,$this->username,$this->password);
         $this->createdb();
@@ -52,39 +51,86 @@ class Mydb{
         mysqli_close($this->conn);
     }
     public function insert($full_name,$user_name,$email,$password,$phone,$address,$image_url,$whatsapp){
-        $vaild = validateWhatsAppNumber($whatsapp);
-        if($vaild){
+      
         $sql_insert = "INSERT INTO ".$this->table_name."(full_name,user_name,phone,whatsapp,address,password,image_url,email) VALUES ('".$full_name."','".$user_name."','".$phone."','".$whatsapp."','".$address."','".$password."','".$image_url."','".$email."')";
-                if(mysqli_query($this->conn,$sql_insert)){
-                    return 200;
+        try{        
+        if(mysqli_query($this->conn,$sql_insert)){
+
+                    return [
+                        "state"=>"success",
+                        'message'=>"The Account Has Been Created Successfully"
+                    ];
                 }
                 else{
-                    error_log(mysqli_error($this->conn));
-                    return ["error"=>mysqli_error($this->conn)];
+                    return  [
+                        "state"=>"error",
+                        'message'=>"This Username Is In Used",
+                    ];
                 }
-        }
-        else{
-            echo $vaild;
-            echo "no whatsapp with this number";
-            error_log("no whatsapp with this number");
-            return ["error" =>"no whatsapp with this number"];
-        }
+            } catch(Exception $e){
+                return  [
+                    "state"=>"error",
+                    'message'=>"This Username Is In Used",
+                ];
+            }
+       
     }
     public function select($user_name){
         $sql_select = "SELECT * FROM ".$this->table_name." WHERE user_name ="." '".$user_name."'";
         $result = mysqli_query($this->conn,$sql_select);
         if(mysqli_num_rows($result) > 0){
             $row = mysqli_fetch_array($result);
-            echo "data found successfully" ."<br>";
-            return $row;
+            
+            return json_encode([
+                "data"=>$row                
+            ]);
         }
         else{
             error_log("data not found");
-            return ["error"=> "data not found"];
+            return json_encode(["error"=> "data not found"]);
         }
     }
 }
-//$mynewdb = new Mydb();
-//$mynewdb->insert("ali","1234150","ali@test.com","123.874",201142420289,"dsadas","sadasd",201142420289);
-#$mynewdb->select("1234580");
+
+$mynewdb = new Mydb();
+// $mynewdb->insert("ali","1234150","ali@test.com","123.874",201142420289,"dsadas","sadasd",201142420289);
+// $user =$mynewdb->select("1234150");
+// echo $user['full_name'];
+include "Upload.php";
+
+header("Content-Type: application/json");
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $full_name = $_POST['full_name'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $phone = $_POST['phone'];
+    $whatsapp_number = $_POST['whatsapp_number'];
+    $address = $_POST['address'];
+    $photo_response = saveUploadedImage('photo'); 
+    if ($photo_response['state']){
+        $db_response = $mynewdb->insert($full_name,$username,$email,$password,$phone,$address,$photo_response['path'],$whatsapp_number);
+        if ($db_response['state']=="error"){
+            deleteUploadedImage($photo_response['basename']);
+        }
+        echo json_encode(
+            [
+                 'state'=>$db_response['state'],
+                 "message"=> $db_response['message']
+            ]);
+
+    } else{
+        echo json_encode([
+            'state' => 'failed',
+            "message" => $photo_response["error"]
+        ]);
+
+    }
+   
+
+
+    
+    
+}
 ?>
+
